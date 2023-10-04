@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .bg-gradiente {
+    background-image: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.8) 0,
+      rgba(0, 0, 0, 0) 60%,
+      rgba(0, 0, 0, 0.8) 100%
+    );
+  }
+}
+
+/* Input odaklandığında */
+input[type="text"]:focus ~ .input-text {
+  /* Diğer stilleri uygulayın */
+  color: white;
+  transform: translate(-350px, -1px) scale(0.75);
+}
+
+/* Input odaklanmadığında placeholder'ı gizle */
+input[type="text"]:not(:focus)::placeholder {
+  opacity: 0;
+  visibility: hidden;
+}
