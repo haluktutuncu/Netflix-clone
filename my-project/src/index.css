@@ -25,3 +25,10 @@ input[type="text"]:not(:focus)::placeholder {
   opacity: 0;
   visibility: hidden;
 }
+
+.rc-collapse {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.35s ease;
+}

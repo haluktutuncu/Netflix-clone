@@ -57,7 +57,7 @@ export default function Header() {
             ></path>
           </svg>
         </div>
-        <div className=" px-4 py-1 text-white  bg-red-600 rounded-[4px] ml-6">
+        <div className=" px-4 py-1 text-white  bg-[rgb(210,47,39)] rounded-[4px] ml-6">
           <a>Sign in</a>
         </div>
       </div>
