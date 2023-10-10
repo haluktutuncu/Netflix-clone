@@ -1,6 +1,7 @@
 import Header from "./components/Header";
 import Banner from "./components/Banner";
 import Accordion from "./Accordion";
+import Footer from "./components/Footer";
 import { useState } from "react";
 
 export default function App() {
@@ -89,7 +90,6 @@ function Partone() {
         </div>
       </div>
       <div className="w-full h-[10px] bg-line"></div>
-
       <div className="flex justify-center bg-black">
         <div className="w-[510px] h-[382px] flex items-center flex-col justify-center bg-black text-white">
           <h2 className="text-[50px] mr-[100px] font-bold">Enjoy on your TV</h2>
@@ -147,7 +147,7 @@ function Partone() {
         </div>
       </div>
       <div className="w-full h-[10px] bg-line"></div>
-      <div className="bg-black h-[950px] w-full flex flex-col items-center justify-start">
+      <div className="bg-black h-[750px] w-full flex flex-col items-center justify-start">
         <div className="list flex items-center flex-col transition-all">
           <h1 className="font-bold text-[45px] text-white my-[40px] mb-[20px]">
             Frequently Asked Questions
@@ -155,7 +155,12 @@ function Partone() {
           {list.map((item, key) => (
             <Accordion datas={item} key={key} />
           ))}
-          <form className="flex text-white">
+
+          <p className="text-white text-[20px] py-[20px] pt-[35px]">
+            Ready to watch? Enter your email to create or restart your
+            membership.
+          </p>
+          <form className="flex text-white translate-x-6 scale-90">
             <label className="group text-white">
               <div className="w-56 relative group">
                 <input
@@ -166,9 +171,9 @@ function Partone() {
                 ></input>
                 <label
                   htmlFor="Email"
-                  className="transform translate-x-[-85px]  transition-all absolute top-0 left-0 h-full flex items-center pl-2 text-[18px] group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-0  group-focus-within:pl-0 peer-valid:pl-0"
+                  className="transform translate-x-[-85px] text-[rgb(168,168,168)]  transition-all absolute top-0 left-0 h-full flex items-center pl-2 text-[18px] group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-0  group-focus-within:pl-0 peer-valid:pl-0"
                 >
-                  Email
+                  Email Address
                 </label>
               </div>
             </label>
@@ -199,7 +204,9 @@ function Partone() {
             </div>
           </form>
         </div>
+        <div className="w-full h-[10px] bg-line mt-[80px]"></div>
       </div>
+      <Footer />
     </div>
   );
 }

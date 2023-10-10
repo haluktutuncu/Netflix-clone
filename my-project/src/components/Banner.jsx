@@ -18,13 +18,13 @@ export default function Banner() {
               type="text"
               id="Email"
               required
-              className="w-[368px] h-[56px] px-4 translate-x-[-100px] text-[18px] peer bg-[rgb(0,0,0,0.2)] border rounded-[4px] border-[rgb(89,89,89)] outline-none"
+              className="w-[368px] h-[56px] px-4 pt-4 translate-x-[-100px] text-[16px]  peer bg-[rgb(0,0,0,0.2)] border rounded-[4px] border-[rgb(89,89,89)] outline-none"
             ></input>
             <label
               htmlFor="Email"
-              className="transform translate-x-[-85px]  transition-all absolute top-0 left-0 h-full flex items-center pl-2 text-[18px] group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-0  group-focus-within:pl-0 peer-valid:pl-0"
+              className="transform translate-x-[-85px] text-[rgb(168,168,168)]  transition-all absolute top-0 left-0 h-full flex items-center pl-2 text-[18px] group-focus-within:text-xs peer-valid:text-xs group-focus-within:h-1/2 peer-valid:h-1/2 group-focus-within:-translate-y-0  group-focus-within:pl-0 peer-valid:pl-0"
             >
-              Email
+              Email address
             </label>
           </div>
         </label>
