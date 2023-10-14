@@ -5,7 +5,6 @@ import MovieCard from "./MovieCard";
 
 export default function Row({ title, fetchURL }) {
   const [movies, setMovies] = useState([]);
-  const [hover, setHover] = useState(false);
 
   useEffect(() => {
     axios.get(fetchURL).then((response) => {
