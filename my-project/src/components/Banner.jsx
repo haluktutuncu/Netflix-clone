@@ -1,4 +1,4 @@
-import Form from "./Form";
+import FormInput from "./FormInput";
 
 export default function Banner() {
   return (
@@ -11,7 +11,7 @@ export default function Banner() {
       <p className="text-xl pb-4">
         Ready to watch? Enter your email to create or restart your membership.
       </p>
-      <Form />
+      <FormInput />
     </div>
   );
 }

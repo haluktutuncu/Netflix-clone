@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Accordion from "../Accordion";
-import Form from "./Form";
+
 import Footer from "./Footer";
 
 export default function Partone() {
@@ -143,7 +143,6 @@ export default function Partone() {
             Ready to watch? Enter your email to create or restart your
             membership.
           </p>
-          <Form />
         </div>
         <div className="w-full h-[10px] bg-line mt-[80px]"></div>
       </div>

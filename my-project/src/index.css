@@ -11,6 +11,10 @@
       rgba(0, 0, 0, 0.8) 100%
     );
   }
+  ,
+  .rtl-text {
+    direction: rtl;
+  }
 }
 
 /* Input odaklandığında */

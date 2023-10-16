@@ -16,7 +16,10 @@ export default function Row({ title, fetchURL }) {
     <>
       <h2 className="text-white font-bold font-xl md-text-xl p-4">{title}</h2>
       <div className="relative flex items-center">
-        <div id={"slider"}>
+        <div
+          id={"slider"}
+          className={`w-full h-full whitespace-nowrap scroll-smooth relative overflow-x-auto`}
+        >
           {movies.map((items, id) => (
             <MovieCard item={items} key={id} />
           ))}
