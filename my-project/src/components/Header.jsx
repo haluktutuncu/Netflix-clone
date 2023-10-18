@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Header() {
   return (
     <div className="flex items-center align-middle justify-around box-border">
@@ -57,9 +59,11 @@ export default function Header() {
             ></path>
           </svg>
         </div>
-        <div className=" px-4 py-1 text-white  bg-[rgb(210,47,39)] rounded-[4px] ml-6">
-          <a>Sign in</a>
-        </div>
+        <Link to="/login">
+          <div className=" px-4 py-1 text-white  bg-[rgb(210,47,39)] rounded-[4px] ml-6">
+            <a>Sign in</a>
+          </div>
+        </Link>
       </div>
     </div>
   );
