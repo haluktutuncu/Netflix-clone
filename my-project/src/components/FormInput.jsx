@@ -21,6 +21,8 @@ const FormInput = () => {
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
+      validateOnChange={true}
+      validateOnBlur={true}
       validate={(values) => {
         const errors = {};
         if (!values.email) {
@@ -33,10 +35,15 @@ const FormInput = () => {
         return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
+        if (!values.email) {
+          setErrorForm(true);
+          console.log(errorForm);
+        } else {
+          setTimeout(() => {
+            alert(JSON.stringify(values, null, 2));
+            setSubmitting(false);
+          }, 400);
+        }
       }}
     >
       {({
@@ -50,7 +57,16 @@ const FormInput = () => {
         isSubmitting,
         /* and other goodies */
       }) => (
-        <form onSubmit={handleSubmit} className="flex text-white relative ">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault(); // Formun otomatik olarak gönderilmesini engelle
+            if (Object.keys(errors).length === 0) {
+              // Hata olmadığında sadece gönder
+              submitForm();
+            }
+          }}
+          className="flex text-white relative "
+        >
           <label
             className={`absolute text-zinc-400  pointer-events-none -z-0 transition-all
             ${
@@ -74,7 +90,9 @@ const FormInput = () => {
             onFocus={handleInputFocus}
             onClick={handleLabelClick}
             className={`min-w-[360px] h-[56px] bg-black/50 p-4 ${
-              errors.email ? "border-red-600" : "border-zinc-600"
+              touched.email && errors.email
+                ? "border-red-600"
+                : "border-zinc-600"
             } border rounded-md focus:outline-none  ${
               isInputFocused || values.email ? "pt-7" : ""
             }`}
@@ -83,7 +101,7 @@ const FormInput = () => {
             onChange={handleChange}
             value={values.email}
           />
-          {errors.email && (
+          {touched.email && errors.email && (
             <div
               className={`absolute translate-x-1 translate-y-14 text-[14px] flex items-center justify-center`}
             >
@@ -115,7 +133,7 @@ const FormInput = () => {
             {errors.email || !values.email ? (
               <button
                 className={`bg-[red] w-full h-full ml-2 font-bold text-[25px] rounded-md flex items-center justify-center gap-x-2 transition-all hover:bg-red-700`}
-                type="button"
+                type="submit"
                 onClick={() => {
                   setErrorForm(true);
                   console.log(errorForm);
