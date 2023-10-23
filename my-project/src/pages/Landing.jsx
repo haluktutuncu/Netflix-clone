@@ -1,5 +1,5 @@
-import Header from "/Users/haluktutuncu/Desktop/Yazılım Portfolyom/Movie-app/my-project/src/components/Header";
-import Banner from "/Users/haluktutuncu/Desktop/Yazılım Portfolyom/Movie-app/my-project/src/components/Banner";
+import Header from "../components/Header"
+import Banner from"../components/Banner"
 import Partone from "../components/Partone";
 export default function Landing() {
   return (

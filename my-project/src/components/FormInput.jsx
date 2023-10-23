@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+
 const FormInput = () => {
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isLabelClicked, setIsLabelClicked] = useState(false);
@@ -90,7 +91,7 @@ const FormInput = () => {
             onFocus={handleInputFocus}
             onClick={handleLabelClick}
             className={`min-w-[360px] h-[56px] bg-black/50 p-4 ${
-              touched.email && errors.email
+              errors.email
                 ? "border-red-600"
                 : "border-zinc-600"
             } border rounded-md focus:outline-none  ${
@@ -101,7 +102,7 @@ const FormInput = () => {
             onChange={handleChange}
             value={values.email}
           />
-          {touched.email && errors.email && (
+          { errors.email && (
             <div
               className={`absolute translate-x-1 translate-y-14 text-[14px] flex items-center justify-center`}
             >
