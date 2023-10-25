@@ -3,13 +3,13 @@
 import { Formik } from "formik";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import { useGlobalContext } from "../context";
 
 const FormInput = () => {
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isLabelClicked, setIsLabelClicked] = useState(false);
   const [errorForm, setErrorForm] = useState(false);
-
+  const { setGlobalData } = useGlobalContext();
   const handleInputFocus = () => {
     setIsInputFocused(true);
   };
@@ -25,6 +25,7 @@ const FormInput = () => {
       validateOnChange={true}
       validateOnBlur={true}
       validate={(values) => {
+        console.log(values.email);
         const errors = {};
         if (!values.email) {
           errors.email = "Required";
@@ -45,6 +46,7 @@ const FormInput = () => {
             setSubmitting(false);
           }, 400);
         }
+        setGlobalData(values.email);
       }}
     >
       {({
@@ -91,9 +93,7 @@ const FormInput = () => {
             onFocus={handleInputFocus}
             onClick={handleLabelClick}
             className={`min-w-[360px] h-[56px] bg-black/50 p-4 ${
-              errors.email
-                ? "border-red-600"
-                : "border-zinc-600"
+              errors.email ? "border-red-600" : "border-zinc-600"
             } border rounded-md focus:outline-none  ${
               isInputFocused || values.email ? "pt-7" : ""
             }`}
@@ -102,7 +102,7 @@ const FormInput = () => {
             onChange={handleChange}
             value={values.email}
           />
-          { errors.email && (
+          {errors.email && (
             <div
               className={`absolute translate-x-1 translate-y-14 text-[14px] flex items-center justify-center`}
             >
