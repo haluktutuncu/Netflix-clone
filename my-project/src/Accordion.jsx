@@ -36,7 +36,7 @@ const Accordion = (props) => {
               x2="15"
               y2="30"
               stroke="white"
-              stroke-width="2"
+              strokeWidth="2"
             />
             <line
               x1="30"
@@ -44,7 +44,7 @@ const Accordion = (props) => {
               x2="-1.19209e-07"
               y2="15"
               stroke="white"
-              stroke-width="2"
+              strokeWidth="2"
             />
           </svg>
         </div>

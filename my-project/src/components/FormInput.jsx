@@ -1,15 +1,16 @@
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable no-unused-vars */
 import { Formik } from "formik";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { useGlobalContext } from "../context";
+import { GlobalContext } from "../context/GlobalState";
 
 const FormInput = () => {
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isLabelClicked, setIsLabelClicked] = useState(false);
   const [errorForm, setErrorForm] = useState(false);
-  const { setGlobalData } = useGlobalContext();
+  const { email, setEmail } = useContext(GlobalContext);
+
   const handleInputFocus = () => {
     setIsInputFocused(true);
   };
@@ -25,7 +26,6 @@ const FormInput = () => {
       validateOnChange={true}
       validateOnBlur={true}
       validate={(values) => {
-        console.log(values.email);
         const errors = {};
         if (!values.email) {
           errors.email = "Required";
@@ -46,18 +46,17 @@ const FormInput = () => {
             setSubmitting(false);
           }, 400);
         }
-        setGlobalData(values.email);
       }}
     >
       {({
         values,
         errors,
         touched,
-        handleChange,
         submitForm,
         isValid,
         handleSubmit,
-        isSubmitting,
+        handleChange,
+
         /* and other goodies */
       }) => (
         <form
@@ -130,12 +129,14 @@ const FormInput = () => {
               <p className="text-[red] pl-2">{errors.email}</p>
             </div>
           )}
-          <div className="w-[209px] h-[56px]">
+          <div className="w-[209px] h-[56px] ">
             {errors.email || !values.email ? (
               <button
                 className={`bg-[red] w-full h-full ml-2 font-bold text-[25px] rounded-md flex items-center justify-center gap-x-2 transition-all hover:bg-red-700`}
                 type="submit"
                 onClick={() => {
+                  console.log(values.email);
+
                   setErrorForm(true);
                   console.log(errorForm);
                 }}
@@ -162,7 +163,7 @@ const FormInput = () => {
                 </svg>
               </button>
             ) : (
-              <Link to="/signup">
+              <Link to="/signup" onClick={setEmail(values.email)}>
                 <button
                   className={`bg-[red] ml-2 w-full h-full font-bold text-[25px] rounded-md flex items-center justify-center gap-x-2 transition-all hover:bg-red-700`}
                   type="submit"
