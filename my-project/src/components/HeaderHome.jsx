@@ -11,12 +11,47 @@ import { useState } from "react";
 
 export default function HeaderHome() {
   const [isOpen, setIsOpen] = useState(false);
+  const [timeoutId, setTimeoutId] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  console.log(isOpen);
+
+  const handleMouseEnter = () => {
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+
+    const delayedCloseTimeout = setTimeout(() => {
+      setIsOpen(false);
+    }, 1000);
+
+    setTimeoutId(delayedCloseTimeout);
+  };
+
+  const handleMenuMouseEnter = () => {
+    setMenuOpen(true);
+  };
+
+  const handleMenuMouseLeave = () => {
+    const delayedCloseTimeout = setTimeout(() => {
+      setMenuOpen(false);
+    }, 1000);
+
+    setTimeoutId(delayedCloseTimeout);
+  };
 
   return (
     <div className=" w-full h-[68px] flex items-center justify-between bg-transparent text-[14px] font-[400] fixed z-50 ">
       <div className="flex items-start justify-center gap-[50px]">
         <Link to="/">
-          <a href="#" className="ml-[30px] flex justify-center items-center">
+          <a
+            href="#"
+            className="ml-[30px] flex justify-center items-center fill-[rgb(210,47,39)]"
+          >
             <svg
               viewBox="0 0 111 30"
               version="1.1"
@@ -76,7 +111,7 @@ export default function HeaderHome() {
             ></path>
           </svg>
         </div>
-        <a href="#">Kids</a>{" "}
+        <a href="#">Kids</a>
         <div className="flex items-center justify-center translate-y-[5px]">
           <svg
             width="36"
@@ -93,19 +128,20 @@ export default function HeaderHome() {
             ></path>
           </svg>
         </div>
-        <Link to="/account"></Link>
+
         <div
-          onMouseEnter={() => setIsOpen(true)}
-          onMouseLeave={() => setIsOpen(false)}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
           className="flex items-center justify-center gap-x-2"
         >
           <img src="https://occ-0-778-1489.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABY20DrC9-11ewwAs6nfEgb1vrORxRPP9IGmlW1WtKuaLIz8VxCx5NryzDK3_ez064IsBGdXjVUT59G5IRuFdqZlCJCneepU.png?r=229"></img>
           <FontAwesomeIcon icon={faCaretDown} />
         </div>
-        {isOpen && (
+        {(isOpen || menuOpen) && (
           <div
-            onMouseOver={() => setIsOpen(true)}
-            className="bg-black/90 flex justify-center absolute translate-y-[120px] border-zinc-600 border-[1px] delay-200"
+            onMouseEnter={handleMenuMouseEnter}
+            onMouseLeave={handleMenuMouseLeave}
+            className="bg-black/90 flex justify-center absolute translate-y-[140px] border-zinc-600 border-[1px] delay-200"
           >
             <ul className="">
               <li className="flex gap-x-3 items-center font-[200] hover:underline cursor-pointer pl-[20px] pr-[20px]">
@@ -114,7 +150,7 @@ export default function HeaderHome() {
                   icon={faPencil}
                 />
                 <a className="py-[7px] w-[90px]" href="#">
-                  user1
+                  Account Management
                 </a>
               </li>
               <li className="flex gap-x-3 items-center font-[200] hover:underline cursor-pointer pl-[20px] pr-[20px]">
@@ -123,35 +159,39 @@ export default function HeaderHome() {
                   icon={faFaceSmile}
                 />
                 <a className="py-[7px] w-[90px]" href="#">
-                  user1
+                  Switch Account
                 </a>
               </li>
-              <li className="flex gap-x-3 items-center font-[200] hover:underline cursor-pointer pl-[20px] pr-[20px]">
-                <FontAwesomeIcon
-                  className="w-[30px] h-[18px] text-zinc-500"
-                  icon={faUser}
-                />
-                <a className="py-[7px] w-[90px]" href="#">
-                  user1
-                </a>
-              </li>
+              <Link to="/account">
+                <li className="flex gap-x-3 items-center font-[200] hover:underline cursor-pointer pl-[20px] pr-[20px]">
+                  <FontAwesomeIcon
+                    className="w-[30px] h-[18px] text-zinc-500"
+                    icon={faUser}
+                  />
+                  <a className="py-[7px] w-[90px]" href="#">
+                    Account
+                  </a>
+                </li>
+              </Link>
               <li className="flex gap-x-3 items-center font-[200] hover:underline cursor-pointer pl-[20px] pr-[20px]">
                 <FontAwesomeIcon
                   className="w-[30px] h-[18px] text-zinc-500"
                   icon={faCircleInfo}
                 />
                 <a className="py-[7px] w-[90px]" href="#">
-                  user1
+                  Help
                 </a>
               </li>
               <li>
                 <div className="w-[200px] bg-zinc-400 h-[1px]"></div>
               </li>
-              <li className="flex items-center justify-center font-[200] hover:underline cursor-pointer  ">
-                <a className="py-[7px] w-[90px] " href="#">
-                  Log out
-                </a>
-              </li>
+              <Link to="/">
+                <li className="flex items-center justify-center font-[200] hover:underline cursor-pointer  ">
+                  <a className="py-[7px] w-[90px] " href="#">
+                    Log out
+                  </a>
+                </li>
+              </Link>
             </ul>
           </div>
         )}
