@@ -1,20 +1,25 @@
 import { Formik, Form, Field } from "formik";
 import { useContext, useState } from "react";
 import { GlobalContext } from "../context/GlobalState";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import { UserAuth } from "../context/AuthContext";
 
 const Signup = () => {
   const [isInputFocused, setIsInputFocused] = useState(false);
   const { email } = useContext(GlobalContext);
+
+  const { user, signUp } = UserAuth();
+  const navigate = useNavigate();
 
   const validation = Yup.object().shape({
     email: Yup.string()
       .email("Please enter a valid email")
       .required("Enter an email"),
     password: Yup.string()
-      .required("No password provided.")
-      .min(8, "Password is too short - should be 8 chars minimum.")
+      .required("Your password must contain between 4 and 60 characters.")
+      .min(4, "Password is too short - should be 8 chars minimum.")
+      .max(60, "Password is too long - should be 60 chars maximum.")
       .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
   });
 
@@ -52,8 +57,13 @@ const Signup = () => {
                 password: "",
               }}
               validationSchema={validation}
-              onSubmit={(values) => {
-                console.log("values", values);
+              onSubmit={async (values) => {
+                try {
+                  await signUp(values.email, values.password);
+                  navigate("/login");
+                } catch (error) {
+                  console.log(error);
+                }
               }}
             >
               {({ values, errors, handleChange, handleSubmit }) => (
@@ -61,51 +71,66 @@ const Signup = () => {
                   onSubmit={handleSubmit}
                   className="relative flex flex-col gap-y-3"
                 >
-                  <label
-                    className={`absolute translate-y-[13px] translate-x-5 font-[300] transition-all text-zinc-400  ${
-                      isInputFocused || values.email
-                        ? "scale-[0.75] translate-x-[10px] translate-y-[2px]"
-                        : "translate-x-4 translate-y-4"
-                    } `}
-                    htmlFor="email"
-                  >
-                    Email
-                  </label>
-                  <Field
-                    className={`w-[314px] h-[50px] bg-[rgb(51,51,51)] outline-none rounded-[4px] px-5 ${
-                      isInputFocused || values.email ? "pt-3" : ""
+                  <div>
+                    <label
+                      className={`absolute translate-y-[13px] translate-x-5 font-[300] transition-all text-zinc-400  ${
+                        isInputFocused || values.email
+                          ? "scale-[0.75] translate-x-[10px] translate-y-[2px]"
+                          : "translate-x-4 translate-y-4"
+                      } `}
+                      htmlFor="email"
+                    >
+                      Email
+                    </label>
+                    <Field
+                      className={`w-[314px] h-[50px] bg-[rgb(51,51,51)] outline-none rounded-[4px] px-5 ${
+                        isInputFocused || values.email ? "pt-3" : ""
+                      }
+                    ${
+                      errors.email
+                        ? "border-b-[rgb(218,130,48)] border-b-[2.2px]"
+                        : ""
                     }`}
-                    name="email"
-                    id="email"
-                    value={values.email}
-                    onChange={handleChange}
-                  />
+                      name="email"
+                      id="email"
+                      value={values.email}
+                      onChange={handleChange}
+                    />
+                  </div>
                   {errors.email && (
-                    <div className="text-red-500">{errors.email}</div>
+                    <div className="text-[rgb(218,130,48)] -translate-y-2 translate-x-1 text-[12.5px]">
+                      {errors.email}
+                    </div>
                   )}
-                  <label
-                    className={`absolute top-[59px] transition-all translate-x-5 font-[300] text-zinc-400 ${
-                      isInputFocused || values.password
-                        ? "scale-[0.75] translate-x-[8px] translate-y-[4px]"
-                        : "translate-x-4 translate-y-4"
-                    }`}
-                    htmlFor="password"
-                  >
-                    Password
-                  </label>
-                  <Field
-                    type="password"
-                    className={`w-[314px] h-[50px] bg-[rgb(51,51,51)] outline-none rounded-[4px] px-5 ${
-                      isInputFocused || values.password ? "pt-3" : ""
-                    }`}
-                    name="password"
-                    id="password"
-                    value={values.password}
-                    onChange={handleChange}
-                  />
+                  <div className="relative">
+                    <label
+                      className={`absolute translate-y-3 transition-all translate-x-5 font-[300] text-zinc-400 ${
+                        isInputFocused || values.password
+                          ? "scale-[0.75] translate-x-[8px] -translate-y-[0.1px] "
+                          : "translate-x-4 translate-y-3"
+                      }`}
+                      htmlFor="password"
+                    >
+                      Password
+                    </label>
+                    <Field
+                      type="password"
+                      className={`w-[314px] h-[50px] bg-[rgb(51,51,51)] outline-none rounded-[4px] px-5 ${
+                        isInputFocused || values.password ? "pt-3" : ""
+                      } ${
+                        errors.password
+                          ? "border-b-[rgb(218,130,48)] border-b-[2.2px]"
+                          : ""
+                      }`}
+                      name="password"
+                      id="password"
+                      value={values.password}
+                      onChange={handleChange}
+                    />
+                  </div>
                   {errors.password && (
-                    <div className="text-red-500">
-                      {!errors.email && errors.password}
+                    <div className="text-[rgb(218,130,48)] -translate-y-2 translate-x-1 text-[12.5px]">
+                      {errors.password}
                     </div>
                   )}
                   <button
