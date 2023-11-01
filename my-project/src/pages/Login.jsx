@@ -30,12 +30,11 @@ const Login = () => {
         src="https://assets.nflxext.com/ffe/siteui/vlv3/a73c4363-1dcd-4719-b3b1-3725418fd91d/0ff5157d-6c35-4546-a844-5254b42bff8f/TR-en-20231016-popsignuptwoweeks-perspective_alpha_website_small.jpg"
       ></img>
       <div className="absolute bg-black/60 top-0 left-0 w-full h-screen"></div>
-      <div className="fixed w-full px-4 py-8 z-50 ">
+      <div className="fixed w-full px-4 py-8 z-50 translate-x-5 ">
         <svg
-          className="fill-[red] scale-[.85] "
+          className="fill-[rgb(210,47,39)] z-100 "
           viewBox="0 0 734 30"
           data-uia="netflix-logo"
-          class="svg-icon svg-icon-netflix-logo"
           aria-hidden="true"
           focusable="false"
         >
