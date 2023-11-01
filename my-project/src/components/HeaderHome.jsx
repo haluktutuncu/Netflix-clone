@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCaretDown,
@@ -8,13 +8,24 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { UserAuth } from "../context/AuthContext";
+import { async } from "@firebase/util";
 
 export default function HeaderHome() {
   const [isOpen, setIsOpen] = useState(false);
   const [timeoutId, setTimeoutId] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user, logOut } = UserAuth();
+  const navigate = useNavigate();
 
-  console.log(isOpen);
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleMouseEnter = () => {
     setIsOpen(true);
@@ -45,7 +56,7 @@ export default function HeaderHome() {
   };
 
   return (
-    <div className=" w-full h-[68px] flex items-center justify-between bg-transparent text-[14px] font-[400] fixed z-50 ">
+    <div className=" w-full h-[68px] flex items-center justify-between bg-transparent text-[14px] font-[400] fixed z-50 bg-gradient-to-t from-transparent to to-black/50 ">
       <div className="flex items-start justify-center gap-[50px]">
         <Link to="/">
           <a
@@ -143,10 +154,10 @@ export default function HeaderHome() {
             onMouseLeave={handleMenuMouseLeave}
             className="bg-black/90 flex justify-center absolute translate-y-[140px] border-zinc-600 border-[1px] delay-200"
           >
-            <ul className="">
-              <li className="flex gap-x-3 items-center font-[200] hover:underline cursor-pointer pl-[20px] pr-[20px]">
+            <ul className="text-[12px]">
+              <li className="flex gap-x-3 items-center font-[200] hover:underline cursor-pointer pl-[20px] pr-[20px] ">
                 <FontAwesomeIcon
-                  className="w-[30px] h-[18px] text-zinc-500"
+                  className="w-[30px] h-[18px] text-zinc-300"
                   icon={faPencil}
                 />
                 <a className="py-[7px] w-[90px]" href="#">
@@ -155,7 +166,7 @@ export default function HeaderHome() {
               </li>
               <li className="flex gap-x-3 items-center font-[200] hover:underline cursor-pointer pl-[20px] pr-[20px]">
                 <FontAwesomeIcon
-                  className="w-[30px] h-[18px] text-zinc-500"
+                  className="w-[30px] h-[18px] text-zinc-300"
                   icon={faFaceSmile}
                 />
                 <a className="py-[7px] w-[90px]" href="#">
@@ -165,7 +176,7 @@ export default function HeaderHome() {
               <Link to="/account">
                 <li className="flex gap-x-3 items-center font-[200] hover:underline cursor-pointer pl-[20px] pr-[20px]">
                   <FontAwesomeIcon
-                    className="w-[30px] h-[18px] text-zinc-500"
+                    className="w-[30px] h-[18px] text-zinc-300"
                     icon={faUser}
                   />
                   <a className="py-[7px] w-[90px]" href="#">
@@ -175,7 +186,7 @@ export default function HeaderHome() {
               </Link>
               <li className="flex gap-x-3 items-center font-[200] hover:underline cursor-pointer pl-[20px] pr-[20px]">
                 <FontAwesomeIcon
-                  className="w-[30px] h-[18px] text-zinc-500"
+                  className="w-[30px] h-[18px] text-zinc-300"
                   icon={faCircleInfo}
                 />
                 <a className="py-[7px] w-[90px]" href="#">
@@ -187,9 +198,13 @@ export default function HeaderHome() {
               </li>
               <Link to="/">
                 <li className="flex items-center justify-center font-[200] hover:underline cursor-pointer  ">
-                  <a className="py-[7px] w-[90px] " href="#">
+                  <button
+                    onClick={handleLogout}
+                    className="py-[7px] w-[90px] "
+                    href="#"
+                  >
                     Log out
-                  </a>
+                  </button>
                 </li>
               </Link>
             </ul>

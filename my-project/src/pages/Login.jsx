@@ -8,8 +8,8 @@ import { UserAuth } from "../context/AuthContext";
 const Login = () => {
   const [isInputFocused, setIsInputFocused] = useState(false);
   const { email } = useContext(GlobalContext);
-
-  const { user, signUp } = UserAuth();
+  const [error, setError] = useState("");
+  const { user, logIn } = UserAuth();
   const navigate = useNavigate();
 
   const validation = Yup.object().shape({
@@ -48,6 +48,11 @@ const Login = () => {
         <div className="max-w-[450px] h-[620px] mx-auto bg-black/75 text-white translate-y-10">
           <div className="max-w-[320px] mx-auto py-16">
             <h1 className="text-3xl font- mb-6">Sign In</h1>
+            {error && (
+              <div className=" flex items-center justify-center w-[314px] h-[54px] bg-[rgb(218,130,48)] text-white text-[16px] rounded-[4px] p-[25px] mb-[10px]">
+                {error}
+              </div>
+            )}
             <Formik
               validateOnChange={false}
               validateOnBlur={false}
@@ -58,10 +63,11 @@ const Login = () => {
               validationSchema={validation}
               onSubmit={async (values) => {
                 try {
-                  await signUp(values.email, values.password);
+                  await logIn(values.email, values.password);
                   navigate("/home");
                 } catch (error) {
                   console.log(error);
+                  setError(error.message);
                 }
               }}
             >
@@ -105,7 +111,7 @@ const Login = () => {
                     <label
                       className={`absolute translate-y-3 transition-all translate-x-5 font-[300] text-zinc-400 ${
                         isInputFocused || values.password
-                          ? "scale-[0.75] translate-x-[8px] -translate-y-[0.1px] "
+                          ? "scale-[0.75] translate-x-[8px] -translate-y-[0.8px] "
                           : "translate-x-4 translate-y-3"
                       }`}
                       htmlFor="password"
@@ -137,7 +143,7 @@ const Login = () => {
                     type="submit"
                     className="w-[314px] h-[48px] text-white px-10 py-3 bg-red-600 rounded-[4px] mt-[30px]"
                   >
-                    Sign Up
+                    Sign In
                   </button>
                   <div className="flex justify-between w-[310px] items-center ">
                     <div className="flex items-center gap-1">
@@ -163,7 +169,7 @@ const Login = () => {
                       New to Netflix?{" "}
                       <span>
                         <Link to="/login">
-                          <a className="text-white">Sign in now.</a>
+                          <a className="text-white">Sign up now.</a>
                         </Link>
                       </span>
                     </p>

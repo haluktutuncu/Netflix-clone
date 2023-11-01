@@ -37,7 +37,7 @@ export default function Row({ title, fetchURL }) {
         />
         <div
           id={"slider"}
-          className={`no-scrollbar w-full h-full relative whitespace-nowrap scroll-smooth box-border  `}
+          className={`no-scrollbar w-full h-full relative whitespace-nowrap scroll-smooth box-border overflow-scroll  `}
         >
           {movies.map((items, id) => (
             <MovieCard item={items} key={id} />

@@ -106,7 +106,7 @@ const Signup = () => {
                     <label
                       className={`absolute translate-y-3 transition-all translate-x-5 font-[300] text-zinc-400 ${
                         isInputFocused || values.password
-                          ? "scale-[0.75] translate-x-[8px] -translate-y-[0.1px] "
+                          ? "scale-[0.75] translate-x-[8px] -translate-y-[0.8px] "
                           : "translate-x-4 translate-y-3"
                       }`}
                       htmlFor="password"
@@ -161,7 +161,7 @@ const Signup = () => {
                   </div>
                   <div className="mt-[60px] ">
                     <p className="text-zinc-500">
-                      New to Netflix?{" "}
+                      Already signed in?{" "}
                       <span>
                         <Link to="/login">
                           <a className="text-white">Sign in now.</a>
