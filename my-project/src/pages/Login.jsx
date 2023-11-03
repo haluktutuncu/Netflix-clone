@@ -94,7 +94,7 @@ const Login = () => {
                     ${
                       errors.email
                         ? "border-b-[rgb(218,130,48)] border-b-[2.2px]"
-                        : ""
+                        : "outline-none"
                     }`}
                       name="email"
                       id="email"
