@@ -27,7 +27,7 @@ export default function Row({ title, fetchURL }) {
   };
 
   return (
-    <>
+    <div>
       <h2 className="text-white font-bold font-xl md-text-xl p-4">{title}</h2>
       <div className="relative flex items-center peer">
         <FontAwesomeIcon
@@ -37,20 +37,20 @@ export default function Row({ title, fetchURL }) {
         />
         <div
           id={"slider"}
-          className={`no-scrollbar w-full h-full relative whitespace-nowrap scroll-smooth box-border overflow-scroll  `}
+          className={`no-scrollbar w-full h-auto relative whitespace-nowrap scroll-smooth  overscroll-x-contain  `}
         >
           {movies.map((items, id) => (
             <MovieCard item={items} key={id} />
           ))}
         </div>
         <FontAwesomeIcon
-          className="text-white scale-150 absolute rounded-full cursor-pointer z-10 right-0 -translate-x-10 p-[16px] py-[13px]
+          className="text-white scale-150 absolute rounded-full cursor-pointer z-10 right-0 -translate-x-10 p-[16px] py-[14px]
            bg-black/30
            hover:bg-black/90 "
           icon={faChevronRight}
           onClick={slideRight}
         />
       </div>
-    </>
+    </div>
   );
 }

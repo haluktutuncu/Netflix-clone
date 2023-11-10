@@ -1,6 +1,6 @@
 export default function MovieCard({ item, key }) {
   return (
-    <div className="w-[160px] bg-zinc-900 sm:w-[260px] md:w-[240px] lg:w-[215px] col-span cursor-pointer inline-block relative m-2 group ">
+    <div className="w-[160px]  bg-zinc-900 sm:w-[260px] md:w-[240px] lg:w-[215px] col-span cursor-pointer inline-block relative m-2 group ">
       <img
         className={`cursor-pointer object-cover transition shadow-xl rounded-md group-hover:opacity-90 sm:group-hover:opacity-0 delay-300 w-full h-[121px] `}
         src={`https://image.tmdb.org/t/p/w500/${item?.backdrop_path}`}
